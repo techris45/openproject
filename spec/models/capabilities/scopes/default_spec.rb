@@ -246,9 +246,10 @@ describe Capabilities::Scopes::Default, type: :model do
       it_behaves_like 'consists of contract actions' do
         let(:expected) do
           # This complicated and programmatic way is chosen so that the test can deal with additional actions being defined
-          item = ->(namespace, action, global) {
+          item = ->(namespace, action, global, module_name) {
             return if namespace == :work_packages
-
+            return if module_name.present?
+            
             ["#{API::Utilities::PropertyNameConverter.from_ar_name(namespace.to_s.singularize).pluralize.underscore}/#{action}",
              user.id,
              global ? nil : project.id]
@@ -256,7 +257,7 @@ describe Capabilities::Scopes::Default, type: :model do
 
           OpenProject::AccessControl
             .contract_actions_map
-            .map { |_, v| v[:actions].map { |vk, vv| vv.map { |vvv| item.call(vk, vvv, v[:global]) } } }
+            .map { |_, v| v[:actions].map { |vk, vv| vv.map { |vvv| item.call(vk, vvv, v[:global], v[:module]) } } }
             .flatten(2)
             .compact
         end
