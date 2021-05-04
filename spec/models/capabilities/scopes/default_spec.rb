@@ -249,7 +249,7 @@ describe Capabilities::Scopes::Default, type: :model do
           item = ->(namespace, action, global, module_name) {
             return if namespace == :work_packages
             return if module_name.present?
-            
+
             ["#{API::Utilities::PropertyNameConverter.from_ar_name(namespace.to_s.singularize).pluralize.underscore}/#{action}",
              user.id,
              global ? nil : project.id]
