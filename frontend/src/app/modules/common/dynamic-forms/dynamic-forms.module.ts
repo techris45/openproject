@@ -21,6 +21,7 @@ import { FormattableControlComponent } from './components/dynamic-inputs/formatt
 import { OpenprojectCommonModule } from "core-app/modules/common/openproject-common.module";
 import { FormattableEditFieldModule } from "core-app/modules/fields/edit/field-types/formattable-edit-field/formattable-edit-field.module";
 import { DatePickerModule } from "core-app/modules/common/op-date-picker/date-picker.module";
+import { DynamicFieldWrapperComponent } from './components/dynamic-field-wrapper/dynamic-field-wrapper.component';
 
 @NgModule({
   imports: [
@@ -38,8 +39,12 @@ import { DatePickerModule } from "core-app/modules/common/op-date-picker/date-pi
       ],
       wrappers: [
         {
-          name: "op-dynamic-field-group-wrapper",
+          name: 'op-dynamic-field-group-wrapper',
           component: DynamicFieldGroupWrapperComponent,
+        },
+        {
+          name: 'op-dynamic-field-wrapper',
+          component: DynamicFieldWrapperComponent,
         },
       ]
     }),
@@ -66,6 +71,7 @@ import { DatePickerModule } from "core-app/modules/common/op-date-picker/date-pi
     SelectProjectStatusInputComponent,
     FormattableTextareaInputComponent,
     FormattableControlComponent,
+    DynamicFieldWrapperComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: OpenProjectHeaderInterceptor, multi: true },
